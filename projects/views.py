@@ -3,7 +3,6 @@ from .forms import ProjectForm
 from django.shortcuts import render, get_object_or_404
 
 
-
 # Shows Project List
 def index(request):
     prj_list = Project.objects.order_by('id')
@@ -15,12 +14,6 @@ def reg_prj(request):
     user_list = User.objects.order_by('id')
     context = {'user_list': user_list}
     return render(request, 'projects/prj_register.html', context)
-
-
-def get_project(request):
-    if request.method == 'POST':
-        form = ProjectForm(request.POST)
-        return render(request, 'projects/project.html', )
 
 
 # Project Page
