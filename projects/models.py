@@ -1,5 +1,4 @@
 from django.db import models
-from django.utils import timezone
 
 
 # User Model
@@ -20,13 +19,15 @@ class User(models.Model):
     def __str__(self):
         return self.name
 
+    def team_name(self):
+        return self.TEAM_CHOICES[self.team][1]
 
 # Project Model
 class Project(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    start_date = models.DateTimeField('date to start')
-    deadline_date = models.DateTimeField('date to finish')
+    start_date = models.DateField('date to start')
+    deadline_date = models.DateField('date to finish')
 
     def __str__(self):
         return self.title
@@ -50,8 +51,8 @@ class Task(models.Model):
         choices=STATUS_CHOICES,
         default=IN_PROGRESS,
     )
-    start_date = models.DateTimeField('date to start')
-    deadline_date = models.DateTimeField('date to finish')
+    start_date = models.DateField('date to start')
+    deadline_date = models.DateField('date to finish')
 
     def __str__(self):
         return self.title

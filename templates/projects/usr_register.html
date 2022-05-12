@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Project Registration Page</title>
+    <title>User Registration Page</title>
 </head>
 <body>
-    <h1>Project Registration Page</h1>
-    <form action="project_registration_progress/" method='post'>
+    <h1>User Registration Page</h1>
+    <form action="user_registration_progress/" method='post'>
         {% csrf_token %}
-        {{ project_form.as_p }}
+        {{ user_form.as_p }}
         <!--Submit Button-->
         <input type="submit" value="Submit">
     </form>

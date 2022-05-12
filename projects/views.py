@@ -1,6 +1,8 @@
 from .models import User, Project, Task
-from .forms import ProjectForm
-from django.shortcuts import render, get_object_or_404
+from .forms import ProjectForm, UserForm
+
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404, reverse
 
 
 # Shows Project List
@@ -10,11 +12,50 @@ def index(request):
     return render(request, 'projects/index.html', context)
 
 
+# Project Registration page
 def reg_prj(request):
     user_list = User.objects.order_by('id')
-    context = {'user_list': user_list}
+    project_form = ProjectForm()
+    context = {'user_list': user_list, 'project_form': project_form}
     return render(request, 'projects/prj_register.html', context)
 
+
+# Post a new project
+def get_project(request):
+    if request.method == 'POST':
+        project_form = ProjectForm(request.POST)
+        if project_form.is_valid():
+            submitted_project = Project(title=project_form.cleaned_data['project_title'],
+                                        user_id=project_form.cleaned_data['user_id'],
+                                        start_date=project_form.cleaned_data['start_date'],
+                                        deadline_date=project_form.cleaned_data['end_date']
+                                        )
+            submitted_project.save()
+            return HttpResponseRedirect(reverse('projects:project', args=(Project.objects.count(), )))
+    else:
+        project_form = ProjectForm()
+    return render(request, 'projects/prj_register.html', {'project_form': project_form})
+
+
+# User Registration page
+def reg_usr(request):
+    user_form = UserForm()
+    return render(request, 'projects/usr_register.html', {'user_form': user_form})
+
+
+# Post a new user
+def get_user(request):
+    if request.method == 'POST':
+        user_form = UserForm(request.POST)
+        if user_form.is_valid():
+            submitted_user = User(name=user_form.cleaned_data['user_name'],
+                                  team=user_form.cleaned_data['user_team'],
+                                  )
+            submitted_user.save()
+            return HttpResponseRedirect(reverse('projects:user', args=(Project.objects.count(),)))
+    else:
+        project_form = ProjectForm()
+    return render(request, 'projects/prj_register.html', {'user_form': user_form})
 
 # Project Page
 def project(request, project_id):
