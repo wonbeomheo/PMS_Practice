@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Page</title>
+</head>
+<body>
+    <h1>{{ project.title }}</h1>
+    <h3>{{ project.user.name }}</h3>
+    {% if task_list %}
+        <ul>
+        {% for task in task_list %}
+            <li><a href="{{ task.id }}/">{{ task.title }}</a></li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>

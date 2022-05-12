@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Registration Page</title>
+</head>
+<body>
+    <h1>Project Registration Page</h1>
+    <form action="{% url 'projects:index' %}" method='post'>
+        {% csrf_token %}
+        <label>Project Title: </label><input  type="text" name="title"><br>
+        <label>User : </label>
+        <select id="users" name="users">
+            {% for user in user_list %}
+                <option value="{{ user.id }}">{{ user.name }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="start_date">Start Date: </label>
+        <input type="date" id="start_date" name="start_date"><br>
+        <label for="deadline_date">End Date: </label>
+        <input type="date" id="deadline_date" name="deadline_date"><br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+</html>

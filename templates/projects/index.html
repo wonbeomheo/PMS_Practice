@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Project Management System</title>
+</head>
+<body>
+    {% if project_list %}
+        <ul>
+            {% for project in project_list %}
+                <li><a href="{{ project.id }}/">{{ project.title }}</a> </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No projects are available.</p>
+    {% endif %}
+    <a href="{% url 'projects:prj_registration' %}">Add a project</a>
+</body>
+</html>

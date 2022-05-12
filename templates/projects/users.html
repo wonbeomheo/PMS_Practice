@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+</head>
+<body>
+    {% if user_list %}
+        <ul>
+            {% for user in user_list %}
+                <li><a href="{{ user.id }}/">{{ user.name }}</a> </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No projects are available.</p>
+    {% endif %}
+</body>
+</html>
