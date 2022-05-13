@@ -15,12 +15,14 @@ class User(models.Model):
     ]
     name = models.CharField(max_length=200)
     team = models.SmallIntegerField(choices=TEAM_CHOICES)
+    password = models.CharField(max_length=12)
 
     def __str__(self):
         return self.name
 
     def team_name(self):
         return self.TEAM_CHOICES[self.team][1]
+
 
 # Project Model
 class Project(models.Model):

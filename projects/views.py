@@ -52,10 +52,11 @@ def get_user(request):
                                   team=user_form.cleaned_data['user_team'],
                                   )
             submitted_user.save()
-            return HttpResponseRedirect(reverse('projects:user', args=(Project.objects.count(),)))
+            return HttpResponseRedirect(reverse('projects:user', args=(User.objects.count(),)))
     else:
-        project_form = ProjectForm()
-    return render(request, 'projects/prj_register.html', {'user_form': user_form})
+        user_form = UserForm()
+    return render(request, 'projects/usr_register.html', {'user_form': user_form})
+
 
 # Project Page
 def project(request, project_id):
